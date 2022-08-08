@@ -1,0 +1,15 @@
+server:
+  port: 99
+spring:
+  application:
+    name: LINK-WEB-APIS
+  datasource:
+    url: jdbc:mysql://localhost:3306/link?serverTimezone=GMT%2B8
+    username: root
+    password: zjj20001031
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+login:
+  github:
+    clientId: 883857950cb7ee43a362
+    secrets: e93894070ceab429ddaf16e13b4d775367a006a9
