@@ -10,6 +10,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 login:
+  ttl: 120
   github:
     clientId: 883857950cb7ee43a362
     secrets: e93894070ceab429ddaf16e13b4d775367a006a9
+

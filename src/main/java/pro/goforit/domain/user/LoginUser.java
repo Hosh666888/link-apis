@@ -5,6 +5,7 @@ import lombok.experimental.Accessors;
 import pro.goforit.domain.User;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * @author: Double>J
@@ -32,7 +33,11 @@ public class LoginUser implements Serializable {
 
     private String gitHubHomePage;
 
+    private String token;
+
     private String role;
+
+    private Long expireIn;
 
 
     public static LoginUser fromUser(User user){
@@ -42,7 +47,9 @@ public class LoginUser implements Serializable {
                                 .setAvatarUrl(user.getAvatar())
                                 .setEmail(user.getEmail())
                                 .setGitHubHomePage(user.getGithubHomeUrl())
-                                .setRole(user.getRole());
+                                .setRole(user.getRole())
+                                .setToken(UUID.randomUUID().toString().replaceAll("-",""));
+
     }
 
 }

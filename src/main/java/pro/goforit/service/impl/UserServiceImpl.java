@@ -31,7 +31,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User selectByGithubId(Long githubId) {
-        log.info(LogConst.LOG_INFO,"根据github id查询用户",githubId);
+        log.info(LogConst.ENTER_METHOD_LOG,"根据github id查询用户",githubId);
         LambdaQueryWrapper<User> lambda = Wrappers.<User>lambdaQuery();
         lambda.eq(User::getGithubId, githubId);
         return userMapper.selectOne(lambda);
@@ -40,7 +40,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public User insertFromGithubUser(GithubUser githubUser) {
-        log.info(LogConst.LOG_INFO,"插入github user",githubUser);
+        log.info(LogConst.ENTER_METHOD_LOG,"插入github user",githubUser);
 
         User user = new User().setNickName(githubUser.getLogin())
                             .setGithubId(githubUser.getId())

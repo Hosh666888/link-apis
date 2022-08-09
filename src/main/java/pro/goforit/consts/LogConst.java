@@ -9,5 +9,5 @@ package pro.goforit.consts;
 public class LogConst {
 
 
-    public static String LOG_INFO = "进入{}方法,参数:{}";
+    public static String ENTER_METHOD_LOG = "进入{}方法,参数:{}";
 }
