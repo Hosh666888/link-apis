@@ -1,0 +1,20 @@
+CREATE TABLE if not exists `article` (
+                           `id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+                           `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+                           `labels` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '标签 逗号分隔',
+                           `content` longtext COLLATE utf8mb4_general_ci COMMENT '富文本原始字符',
+                           `plain_text` longtext COLLATE utf8mb4_general_ci COMMENT '用于检索的文本',
+                           `if_reprintd` tinyint(1) DEFAULT '0' COMMENT '是否转载',
+                           `reprinted_url` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '转载链接',
+                           `if_top` tinyint(1) DEFAULT '0' COMMENT '是否置顶',
+                           `cover_image_url` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '封面图片地址',
+                           `remark` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+                           `heat` bigint DEFAULT '0',
+                           `create_user` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+                           `create_time` datetime DEFAULT NULL,
+                           `update_user` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+                           `update_time` datetime DEFAULT NULL,
+                           `delete_flag` tinyint(1) DEFAULT '0',
+                           PRIMARY KEY (`id`),
+                           UNIQUE KEY `article_id_uindex` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
