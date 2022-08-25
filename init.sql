@@ -18,3 +18,24 @@ CREATE TABLE if not exists `article` (
                            PRIMARY KEY (`id`),
                            UNIQUE KEY `article_id_uindex` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+CREATE TABLE if not exists `user` (
+                        `id` bigint NOT NULL,
+                        `username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户名',
+                        `password` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+                        `nick_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL COMMENT '昵称',
+                        `gender` tinyint NOT NULL DEFAULT '1' COMMENT '性别',
+                        `email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+                        `role` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'normal' COMMENT '角色',
+                        `experience` bigint DEFAULT '0' COMMENT '经验值',
+                        `create_time` datetime NOT NULL,
+                        `flag` int DEFAULT '1' COMMENT '标记位',
+                        `avatar` varchar(255) COLLATE utf8mb4_general_ci DEFAULT 'https://images.pexels.com/photos/1605148/pexels-photo-1605148.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750' COMMENT '头像url',
+                        `github_id` bigint DEFAULT NULL,
+                        `github_home_url` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+                        PRIMARY KEY (`id`),
+                        UNIQUE KEY `username_idx` (`username`) USING BTREE,
+                        UNIQUE KEY `user_github_id_uindex` (`github_id`),
+                        KEY `nickname_idx` (`nick_name`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
