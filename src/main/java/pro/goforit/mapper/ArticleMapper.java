@@ -3,6 +3,11 @@ package pro.goforit.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 import pro.goforit.domain.Article;
+import pro.goforit.dto.article.ArticleSelectDTO;
+import pro.goforit.vo.article.ArticleOverviewVO;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Double.j
@@ -11,4 +16,7 @@ import pro.goforit.domain.Article;
  */
 @Repository
 public interface ArticleMapper extends BaseMapper<Article> {
+
+    List<ArticleOverviewVO> richSelect(ArticleSelectDTO dto);
+
 }

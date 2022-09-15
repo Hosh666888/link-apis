@@ -5,4 +5,53 @@
 <mapper namespace="pro.goforit.mapper.ArticleMapper">
 
 
+    <select id="richSelect" resultType="pro.goforit.vo.article.ArticleOverviewVO"
+            parameterType="pro.goforit.dto.article.ArticleSelectDTO">
+
+        select
+        a.*
+        ,u.nick_name createUserRealName
+        from
+        ( select id
+        ,title
+        ,labels
+        ,left(plain_text,150) as `desc`
+        ,if_reprintd ifReprinted
+        ,reprinted_url reprintedUrl
+        ,cover_image_url coverImageUrl
+        ,heat
+        ,create_user createUser
+        ,create_time createTime
+        from article
+        <where>
+            <if test="title!=null and title!=''">
+                and title like concat('%',#{title,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="label!=null and label!=''">
+                label REGEXP #{label,jdbcType=VARCHAR}
+            </if>
+            <if test="keywords!=null and keywords!=''">
+                and (
+                title REGEXP #{keywords,jdbcType=VARCHAR}
+                or
+                label REGEXP #{keywords,jdbcType=VARCHAR}
+                or
+                plain_text REGEXP #{keywords,jdbcType=VARCHAR}
+                )
+            </if>
+            <if test="ifReprinted!=null">
+                and if_reprintd = #{ifReprinted,jdbcType=BOOLEAN}
+            </if>
+            <if test="ifTop!=null">
+                and if_top = #{ifTop,jdbcType=BOOLEAN}
+            </if>
+            <if test="createUserId!=null and createUserId!=''">
+                and create_user = #{createUserId,jdbcType=VARCHAR}
+            </if>
+        </where>
+        ) a
+        left join (select id,nick_name from user) u on a.createUser = u.id
+        order by heat desc,createTime desc
+
+    </select>
 </mapper>
