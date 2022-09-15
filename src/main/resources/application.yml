@@ -14,4 +14,5 @@ login:
   github:
     clientId: 883857950cb7ee43a362
     secrets: e93894070ceab429ddaf16e13b4d775367a006a9
-
+mybatis:
+  type-aliases-package: pro.goforit.domain

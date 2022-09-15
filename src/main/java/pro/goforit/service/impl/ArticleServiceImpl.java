@@ -52,9 +52,9 @@ public class ArticleServiceImpl implements IArticleService {
         Long userId = ThreadLocalConfig.getUserId();
 
         article.setDeleteFlag(false);
-        article.setCreateUser(userId.toString());
+        article.setCreateUser(userId);
         article.setCreateTime(new Date());
-        article.setUpdateUser(userId.toString());
+        article.setUpdateUser(userId);
         article.setUpdateTime(new Date());
         return articleMapper.insert(article);
     }

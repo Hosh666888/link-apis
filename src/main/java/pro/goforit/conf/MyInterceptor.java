@@ -34,6 +34,12 @@ public class MyInterceptor extends HandlerInterceptorAdapter {
                 log.info("-----------------------------------------------");
                 log.info("[{}]正在访问[{}]",ThreadLocalConfig.getNiceName(),requestURI);
             }
+        }else{
+            //后期删除
+            LoginUser loginUser = new LoginUser();
+            loginUser.setId(1556843175833477122L);
+            ThreadLocalConfig.set(loginUser);
+            //后期删除
         }
 
         return super.preHandle(request, response, handler);

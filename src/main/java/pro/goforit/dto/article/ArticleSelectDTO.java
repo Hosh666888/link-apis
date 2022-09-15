@@ -2,6 +2,8 @@ package pro.goforit.dto.article;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import pro.goforit.dto.BaseSelectDTO;
 
 import java.io.Serializable;
 
@@ -11,8 +13,9 @@ import java.io.Serializable;
  * @editTime: 2022/8/25 11:03
  * @desc:
  **/
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class ArticleSelectDTO implements Serializable {
+public class ArticleSelectDTO extends BaseSelectDTO implements Serializable {
     private static final long serialVersionUID = -3984706622946179617L;
 
     private String title;
@@ -27,9 +30,5 @@ public class ArticleSelectDTO implements Serializable {
     private Boolean ifTop;
 
     private String createUserId;
-
-    private Integer pageIndex;
-
-    private Integer pageSize;
 
 }

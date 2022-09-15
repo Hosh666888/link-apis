@@ -10,7 +10,7 @@
         <result property="labels" column="labels" jdbcType="VARCHAR"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
         <result property="plainText" column="plain_text" jdbcType="VARCHAR"/>
-        <result property="ifReprinted" column="if_reprintd" jdbcType="BOOLEAN"/>
+        <result property="ifReprinted" column="if_reprinted" jdbcType="BOOLEAN"/>
         <result property="reprintedUrl" column="reprinted_url" jdbcType="VARCHAR"/>
         <result property="ifTop" column="if_top" jdbcType="BOOLEAN"/>
         <result property="coverImageUrl" column="cover_image_url" jdbcType="VARCHAR"/>
@@ -54,7 +54,7 @@
         ,title
         ,labels
         ,left(plain_text,150) as `desc`
-        ,if_reprintd ifReprinted
+        ,if_reprinted ifReprinted
         ,reprinted_url reprintedUrl
         ,cover_image_url coverImageUrl
         ,heat
@@ -93,11 +93,11 @@
 
     </select>
     <select id="selectDetailById" resultType="pro.goforit.vo.article.ArticleDetailVO">
-        select article.id
+        select a.id
              , title
              , labels
              , content
-             , if_reprintd     ifReprinted
+             , if_reprinted    ifReprinted
              , reprinted_url   reprintedUrl
              , if_top          ifTop
              , cover_image_url coverImageUrl
@@ -109,9 +109,13 @@
              , update_time     updateTime
              , delete_flag     deleteFlag
              , u.nick_name     createUserRealName
-        from article
+        from (
+                 select *
+                 from article
+                 where id = #{id,jdbcType=VARCHAR}
+             ) a
                  left join
                  (select id, nick_name from user) u
-                 on create_user = cast(u.id as char)
+                 on create_user = u.id
     </select>
 </mapper>
