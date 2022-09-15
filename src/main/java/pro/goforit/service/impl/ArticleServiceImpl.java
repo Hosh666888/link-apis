@@ -2,6 +2,7 @@ package pro.goforit.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,11 +12,14 @@ import pro.goforit.conf.ThreadLocalConfig;
 import pro.goforit.consts.LogConst;
 import pro.goforit.domain.Article;
 import pro.goforit.dto.article.ArticleSelectDTO;
+import pro.goforit.exceptions.NotFoundException;
 import pro.goforit.mapper.ArticleMapper;
 import pro.goforit.service.IArticleService;
+import pro.goforit.service.IUserService;
 import pro.goforit.utils.IdUtil;
 import pro.goforit.utils.PageUtil;
 import pro.goforit.utils.Tuple2;
+import pro.goforit.vo.article.ArticleDetailVO;
 import pro.goforit.vo.article.ArticleOverviewVO;
 
 import javax.annotation.Resource;
@@ -32,6 +36,9 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Resource
     private ArticleMapper articleMapper;
+
+    @Resource
+    private IUserService iUserService;
 
 
     @Override
@@ -73,6 +80,18 @@ public class ArticleServiceImpl implements IArticleService {
         });
 
         return of;
+
+    }
+
+    @Override
+    @SneakyThrows
+    public ArticleDetailVO selectDetailById(String id) {
+        log.info(LogConst.ENTER_METHOD_LOG,"查询文章详情",id);
+        ArticleDetailVO origin = articleMapper.selectDetailById(id);
+        if (origin==null){
+            throw new NotFoundException(id);
+        }
+        return origin;
 
     }
 }

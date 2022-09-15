@@ -9,6 +9,7 @@ import pro.goforit.domain.returns.R;
 import pro.goforit.dto.article.ArticleInsertDTO;
 import pro.goforit.dto.article.ArticleSelectDTO;
 import pro.goforit.service.IArticleService;
+import pro.goforit.vo.article.ArticleDetailVO;
 import pro.goforit.vo.article.ArticleOverviewVO;
 
 import javax.annotation.Resource;
@@ -37,6 +38,11 @@ public class ArticleController {
     public R<PageInfo<ArticleOverviewVO>> selectOverview(@RequestBody ArticleSelectDTO dto){
         PageInfo<ArticleOverviewVO> result = articleService.richSelect(dto);
         return R.success(result);
+    }
+
+    @PostMapping("detail/{id}")
+    public R<ArticleDetailVO> detail(@PathVariable String id){
+        return R.success(articleService.selectDetailById(id));
     }
 
 }

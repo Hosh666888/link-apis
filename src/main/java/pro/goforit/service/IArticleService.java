@@ -3,6 +3,7 @@ package pro.goforit.service;
 import com.github.pagehelper.PageInfo;
 import pro.goforit.domain.Article;
 import pro.goforit.dto.article.ArticleSelectDTO;
+import pro.goforit.vo.article.ArticleDetailVO;
 import pro.goforit.vo.article.ArticleOverviewVO;
 
 /**
@@ -17,4 +18,6 @@ public interface IArticleService {
 
 
     PageInfo<ArticleOverviewVO> richSelect(ArticleSelectDTO dto);
+
+    ArticleDetailVO selectDetailById(String id);
 }

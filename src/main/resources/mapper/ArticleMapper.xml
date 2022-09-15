@@ -4,6 +4,44 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pro.goforit.mapper.ArticleMapper">
 
+    <resultMap id="baseMap" type="pro.goforit.domain.Article">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="labels" column="labels" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="plainText" column="plain_text" jdbcType="VARCHAR"/>
+        <result property="ifReprinted" column="if_reprintd" jdbcType="BOOLEAN"/>
+        <result property="reprintedUrl" column="reprinted_url" jdbcType="VARCHAR"/>
+        <result property="ifTop" column="if_top" jdbcType="BOOLEAN"/>
+        <result property="coverImageUrl" column="cover_image_url" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="heat" column="heat" jdbcType="BIGINT"/>
+        <result property="createUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="BOOLEAN"/>
+    </resultMap>
+
+    <resultMap id="detailVOMap" type="pro.goforit.vo.article.ArticleDetailVO">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="labels" column="labels" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="plainText" column="plain_text" jdbcType="VARCHAR"/>
+        <result property="ifReprinted" column="if_reprintd" jdbcType="BOOLEAN"/>
+        <result property="reprintedUrl" column="reprinted_url" jdbcType="VARCHAR"/>
+        <result property="ifTop" column="if_top" jdbcType="BOOLEAN"/>
+        <result property="coverImageUrl" column="cover_image_url" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="heat" column="heat" jdbcType="BIGINT"/>
+        <result property="createUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="delete_flag" jdbcType="BOOLEAN"/>
+        <result property="createUserRealName" column="realName" jdbcType="VARCHAR"/>
+    </resultMap>
 
     <select id="richSelect" resultType="pro.goforit.vo.article.ArticleOverviewVO"
             parameterType="pro.goforit.dto.article.ArticleSelectDTO">
@@ -53,5 +91,27 @@
         left join (select id,nick_name from user) u on a.createUser = u.id
         order by heat desc,createTime desc
 
+    </select>
+    <select id="selectDetailById" resultType="pro.goforit.vo.article.ArticleDetailVO">
+        select article.id
+             , title
+             , labels
+             , content
+             , if_reprintd     ifReprinted
+             , reprinted_url   reprintedUrl
+             , if_top          ifTop
+             , cover_image_url coverImageUrl
+             , remark
+             , heat
+             , create_user     createUser
+             , create_time     createTime
+             , update_user     updateUser
+             , update_time     updateTime
+             , delete_flag     deleteFlag
+             , u.nick_name     createUserRealName
+        from article
+                 left join
+                 (select id, nick_name from user) u
+                 on create_user = cast(u.id as char)
     </select>
 </mapper>
